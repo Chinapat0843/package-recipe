@@ -23,11 +23,6 @@ jobs:
     steps:
         
       - uses: actions/checkout@v4
-        with:
-          sparse-checkout: |
-              .github
-              src
-              __tests__
       - uses: actions/setup-node@v4
         
         with:
@@ -37,5 +32,18 @@ jobs:
         run: npm install
       - name: Run tests
         run: npm test
+
+  test:
+    runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.experimental }}
+    strategy:
+      fail-fast: true
+      max-parallel: 2
+      matrix:
+        version: [5, 6, 7, 8]
+        experimental: [false]
+        include:
+          - version: 9
+            experimental: true
       
     
