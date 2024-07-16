@@ -1,0 +1,15 @@
+{
+  "name": "package-recipe",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest && make-coverage-badge"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "make-coverage-badge": "^1.2.0"
+  }
+}
