@@ -4,15 +4,32 @@ on:
     push:
       branches:
         - main
+
+permissions:
+  contents: read
+  packages: read
+  # To report GitHub Actions status checks
+  statuses: write
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+              .github
+              src
+              __tests__
       - uses: actions/setup-node@v4
         with:
             node-version: "21.x"
             check-latest: true
+      - name: Super-linter
+        uses: super-linter/super-linter@v5.7.2
+        env:
+          DEFAULT_BRANCH: main
+              # To report GitHub Actions status checks
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Install dependencies
         run: npm install
       - name: Run tests
